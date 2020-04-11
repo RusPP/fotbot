@@ -3,7 +3,6 @@ import vk_api
 import random
 import os
 import wikipedia
-import schedule
 import time
 
 # константы и настройки
@@ -19,15 +18,6 @@ def send_message(vk_session, id_type, id, message=None, attachment=None, keyboar
     vk_session.method('messages.send',
                       {id_type: id, 'message': message, 'random_id': random.randint(-2147483648, +2147483648),
                        "attachment": None, 'keyboard': None})
-
-
-def job():
-    if event.type == VkEventType.MESSAGE_NEW and event.to_me and event.text:
-        if event.from_user:
-            send_message(vk_session, 'user_id', event.user_id, message=" я тупой")
-        elif event.from_chat:
-            send_message(vk_session, 'chat_id', event.chat_id, message=" я тупой")
-
 
 
 
