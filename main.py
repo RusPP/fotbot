@@ -2,7 +2,7 @@ from vk_api.longpoll import VkLongPoll, VkEventType
 import vk_api
 import random
 import os
-import wikipedia
+# import wikipedia
 import time
 
 # константы и настройки
@@ -24,7 +24,7 @@ def send_message(vk_session, id_type, id, message=None, attachment=None, keyboar
 # отклик на ивенты
 for event in longpoll.listen():
     # работа с википедией
-    try:
+ #   try:
         if event.type == VkEventType.MESSAGE_NEW and event.to_me and event.text:
             if event.text == 'Википедия' or event.text == 'Вики' or event.text == 'википедия' or event.text == 'вики' or event.text == 'Wikipedia' or event.text == 'wikipedia' or event.text == 'Wiki' or event.text == 'wiki':
                 if event.from_user:
@@ -32,21 +32,20 @@ for event in longpoll.listen():
                 elif event.from_chat:
                     send_message(vk_session, 'chat_id', event.chat_id, message="Что найти?")
                 continue
-        if event.type == VkEventType.MESSAGE_NEW and event.to_me and event.text:
-            if event.from_user:
-                send_message(vk_session, 'user_id', event.user_id,
-                             message="Вот что я нашёл: \n" + str(wikipedia.summary(event.text)))
-            elif event.from_chat:
-                send_message(vk_session, 'chat_id', event.chat_id,
-                             message="Вот что я нашёл: \n" + str(wikipedia.summary(event.text)))
+  #      if event.type == VkEventType.MESSAGE_NEW and event.to_me and event.text:
+  #          if event.from_user:
+  #              send_message(vk_session, 'user_id', event.user_id,
+   #                          message="Вот что я нашёл: \n" + str(wikipedia.summary(event.text)))
+   #         elif event.from_chat:
+   #             send_message(vk_session, 'chat_id', event.chat_id,
+    #                         message="Вот что я нашёл: \n" + str(wikipedia.summary(event.text)))
 
-    except wikipedia.exceptions.PageError:
-        if event.from_user:
-            send_message(vk_session, 'user_id', event.user_id, message="Я ничего не смог найти")
-        elif event.from_chat:
-            send_message(vk_session, 'chat_id', event.chat_id, message="Я ничего не смог найти")
-    except wikipedia.exceptions.DisambiguationError:
-        if event.from_user:
-            send_message(vk_session, 'user_id', event.user_id, message="Я ничего не смог найти")
-        elif event.from_chat:
-            send_message(vk_session, 'chat_id', event.chat_id, message="Я ничего не смог найти")
+ #   except wikipedia.exceptions.PageError:
+  #      if event.from_user:
+   #         send_message(vk_session, 'user_id', event.user_id, message="Я ничего не смог найти")
+    #
+ #    except wikipedia.exceptions.DisambiguationError:
+  #      if event.from_user:
+ #           send_message(vk_session, 'user_id', event.user_id, message="Я ничего не смог найти")
+ #       elif event.from_chat:
+   #         send_message(vk_session, 'chat_id', event.chat_id, message="Я ничего не смог найти")
