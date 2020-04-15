@@ -31,15 +31,16 @@ for event in longpoll.listen():
                     send_message(vk_session, 'user_id', event.user_id, message="Что найти?")
                 elif event.from_chat:
                     send_message(vk_session, 'chat_id', event.chat_id, message="Что найти?")
-                continue
-        if event.type == VkEventType.MESSAGE_NEW and event.to_me and event.text:
-           if event.from_user:
-               send_message(vk_session, 'user_id', event.user_id,
+            continue
+            if event.type == VkEventType.MESSAGE_NEW and event.to_me and event.text:
+                if event.from_user:
+                    send_message(vk_session, 'user_id', event.user_id,
                            message="Вот что я нашёл: \n" + str(wikipedia.summary(event.text)))
-            elif event.from_chat:
-                send_message(vk_session, 'chat_id', event.chat_id,
-                            message="Вот что я нашёл: \n" + str(wikipedia.summary(event.text)))
-
+                elif event.from_chat:
+                    send_message(vk_session, 'chat_id', event.chat_id,
+                           message="Вот что я нашёл: \n" + str(wikipedia.summary(event.text)))
+            continue
+         break
     except wikipedia.exceptions.PageError:
         if event.from_user:
             send_message(vk_session, 'user_id', event.user_id, message="Я ничего не смог найти")
